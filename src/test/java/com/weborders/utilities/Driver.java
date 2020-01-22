@@ -9,7 +9,12 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
+import java.net.URL;
 
 public class Driver {
 
@@ -59,10 +64,26 @@ public class Driver {
                     WebDriverManager.getInstance(SafariDriver.class).setup();
                     driverPool.set(new SafariDriver());
                     break;
+                case "remote_firefox":
+                    try {
+                        WebDriverManager.firefoxdriver().setup();
+                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+                        desiredCapabilities.setBrowserName(BrowserType.FIREFOX);
+                        driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-173-79-151.compute-1.amazonaws.com:4444/wd/hub"), desiredCapabilities));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                default:
+                    throw new RuntimeException("Wrong browser name!");
+
             }
+
         }
+        //return corresponded to thread id webdriver object
         return driverPool.get();
     }
+
     public static void close() {
         driverPool.get().quit();
         driverPool.remove();
