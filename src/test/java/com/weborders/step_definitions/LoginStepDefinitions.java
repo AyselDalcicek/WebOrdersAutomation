@@ -22,9 +22,8 @@ public class LoginStepDefinitions {
         loginPage.login();
     }
 
-    @Then("I verify that {string} logo is displayed")
-    public void i_verify_that_logo_is_displayed(String string) {
+    @Then("verify that {string} logo is displayed")
+    public void verify_that_logo_is_displayed(String string) {
         Assert.assertEquals("Logo test is not correct", string, loginPage.getPageLogoText());
     }
-
 }
