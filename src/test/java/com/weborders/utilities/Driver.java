@@ -70,8 +70,8 @@ public class Driver {
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName(BrowserType.FIREFOX);
                         driverPool.set(new RemoteWebDriver(new URL("http://ec2-54-173-79-151.compute-1.amazonaws.com:4444/wd/hub"), desiredCapabilities));
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {                             //  ec2-54-84-182-239.compute-1.amazonaws.com  -->jenkins
+                        e.printStackTrace();                            //  ec2-54-173-79-151.compute-1.amazonaws.com  -->grid
                     }
                     break;
                 default:
